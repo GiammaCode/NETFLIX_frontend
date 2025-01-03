@@ -1,11 +1,12 @@
 import api from "./api";
 
-export const getUsers = async () => {
-    const response = await api.get("/users");
-    return response.data;
-};
-
-export const getUserProfiles = async (userId) => {
-    const response = await api.get(`/users/${userId}/profiles`);
-    return response.data;
+// Funzione per ottenere tutti i film
+export const getFilms = async () => {
+    try {
+        const response = await api.get("/films/"); // Assicurati che "/films" sia il percorso corretto nel backend
+        return response.data; // Restituisci i dati ottenuti
+    } catch (error) {
+        console.error("Error fetching films:", error);
+        throw error; // Rilancia l'errore per gestirlo nel componente
+    }
 };

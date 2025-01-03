@@ -1,17 +1,23 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Home from "../pages/Home";
-import Profile from "../pages/Profile";
-import Recommended from "../pages/Recommended";
-import Navbar from "../components/Navbar";
+import Films from "../pages/Films";
 
 const AppRouter = () => (
     <Router>
-        <Navbar />
+        <nav>
+            <ul>
+                <li>
+                    <Link to="/">Home</Link> {/* Collegamento alla homepage */}
+                </li>
+                <li>
+                    <Link to="/films">Films</Link> {/* Collegamento alla pagina Films */}
+                </li>
+            </ul>
+        </nav>
         <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/recommended" element={<Recommended />} />
+            <Route path="/films" element={<Films />} />
         </Routes>
     </Router>
 );
