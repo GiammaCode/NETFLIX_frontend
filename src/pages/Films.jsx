@@ -1,37 +1,49 @@
 import React, { useEffect, useState } from "react";
 import { getFilms } from "../services/useService";
+import "../styles/Components.css";
 
 const Films = () => {
-    const [films, setFilms] = useState([]); // Stato per memorizzare i film
-    const [error, setError] = useState(null); // Stato per eventuali errori
+    const [films, setFilms] = useState([]);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         const fetchFilms = async () => {
             try {
-                const data = await getFilms(); // Chiamata alla funzione getFilms
-                setFilms(data); // Salva i film nello stato
+                const data = await getFilms();
+                setFilms(data);
             } catch (err) {
-                setError("Failed to fetch films"); // Gestione errori
+                setError("Failed to fetch films");
             }
         };
 
-        fetchFilms(); // Richiama i film al caricamento della pagina
+        fetchFilms();
     }, []);
 
     if (error) {
-        return <div>Error: {error}</div>; // Mostra l'errore, se presente
+        return <div className="error">{error}</div>;
     }
 
     return (
-        <div>
-            <h1>Films</h1>
-            <ul>
+        <div className="films-container">
+            <h1 className="title">Films</h1>
+            <div className="films-row">
                 {films.map((film) => (
-                    <li key={film.filmId}>
-                        <strong>{film.title}</strong> ({film.release_year}) - {film.genre}
-                    </li>
+                    <div className="film-card" key={film.filmId}>
+                        <img
+                            src="../../public/default_film_image.png" // Immagine di default
+                            alt={film.title}
+                            className="film-poster"
+                        />
+                        <div className="film-info">
+                            <h2>{film.title}</h2>
+                            <p>{film.genre} | {film.release_year}</p>
+                            <p>
+                                A captivating story that explores thrilling adventures and unforgettable moments.
+                            </p>
+                        </div>
+                    </div>
                 ))}
-            </ul>
+            </div>
         </div>
     );
 };

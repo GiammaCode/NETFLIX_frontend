@@ -1,0 +1,57 @@
+/* Contenitore principale */
+.films-container {
+    padding: 20px;
+    background-color: #141414;
+    color: #fff;
+    font-family: Arial, sans-serif;
+}
+
+/* Titolo */
+.title {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* Griglia di film */
+.films-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Mostra 4 film per riga */
+    gap: 20px; /* Spaziatura tra le carte */
+}
+
+/* Carta del film */
+.film-card {
+    background-color: #222;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.2s;
+}
+
+.film-card:hover {
+    transform: scale(1.05);
+}
+
+/* Poster del film */
+.film-poster {
+    width: 100%; /* Rende l'immagine responsiva */
+    height: 300px; /* Altezza fissa per uniformità */
+    object-fit: cover; /* Ritaglia l'immagine per adattarla */
+    border-bottom: 2px solid #444;
+}
+
+/* Informazioni del film */
+.film-info {
+    padding: 10px;
+    text-align: left;
+}
+
+.film-info h2 {
+    font-size: 16px;
+    margin: 10px 0 5px;
+}
+
+.film-info p {
+    font-size: 14px;
+    margin: 0;
+    color: #ccc;
+}
