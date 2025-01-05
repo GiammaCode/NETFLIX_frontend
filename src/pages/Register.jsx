@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
+import {postUser} from "../services/useService.js";
 
 const Register = () => {
     const [formData, setFormData] = useState({
-        firstName: '',
-        lastName: '',
-        email: '',
-        password: '',
+        firstName: 'giammo',
+        lastName: 'gianmarini',
+        email: 'mare@pascara',
+        password: 'mare',
         birthDate: '',
         paymentMethod: '',
     });
@@ -19,6 +20,7 @@ const Register = () => {
         e.preventDefault();
         console.log('Registration:', formData);
         alert('Registration successful!');
+        const data = postUser(formData)
     };
 
     return (
