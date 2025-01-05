@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { getFilms } from "../services/useService";
 import "../styles/Components.css";
+import {useNavigate} from "react-router-dom";
 
 const Films = () => {
     const [films, setFilms] = useState([]);
     const [error, setError] = useState(null);
+    const navigate = useNavigate(); // Per il reindirizzamento
 
     useEffect(() => {
         const fetchFilms = async () => {
@@ -28,7 +30,11 @@ const Films = () => {
             <h1 className="title">All films</h1>
             <div className="films-row">
                 {films.map((film) => (
-                    <div className="film-card" key={film.filmId}>
+                    <div
+                        className="film-card"
+                        key={film.filmId}
+                        onClick={() => navigate(`/films/${film.filmId}`)}
+                    >
                         <img
                             src="../../public/default_film_image.png" // Immagine di default
                             alt={film.title}
