@@ -1,5 +1,16 @@
+/* Rimuove margini e padding predefiniti per tutti gli elementi */
 * {
-  display: block;
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+}
+
+/* Rimuove il margine predefinito del body */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden; /* Evita lo scorrimento orizzontale */
+  background-color: #141414; /* Sfondo scuro */
 }

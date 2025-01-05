@@ -1,14 +1,14 @@
 /* Contenitore principale */
 .films-container {
     padding: 20px;
-    background-color: #141414;
+    background-color: #222222;
     color: #fff;
     font-family: Arial, sans-serif;
 }
 
 /* Titolo */
 .title {
-    font-size: 24px;
+    font-size: 35px;
     margin-bottom: 20px;
 }
 
@@ -21,7 +21,7 @@
 
 /* Carta del film */
 .film-card {
-    background-color: #222;
+    background-color: #141414;
     border-radius: 8px;
     overflow: hidden;
     transition: transform 0.2s;
@@ -54,4 +54,100 @@
     font-size: 14px;
     margin: 0;
     color: #ccc;
+}
+/* Navbar */
+.navbar {
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #141414;
+    color: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+/* Logo Netflix */
+.navbar-logo img {
+    height: 70px; /* Dimensione del logo aumentata */
+    cursor: pointer;
+}
+
+/* Link della Navbar */
+.navbar-links {
+    display: flex;
+    list-style: none;
+    gap: 20px;
+    margin-left: 20px; /* Sposta il link un po' verso il centro */
+}
+
+.navbar-links a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.navbar-links a:hover {
+    color: #e50914; /* Rosso Netflix */
+}
+
+/* Barra di ricerca */
+.navbar-search {
+    flex: 1; /* Occupa lo spazio disponibile */
+    display: flex;
+    justify-content: center; /* Centro nella navbar */
+    align-items: center;
+    gap: 10px;
+}
+
+.search-input {
+    padding: 10px 15px;
+    font-size: 16px;
+    border: none;
+    border-radius: 20px;
+    outline: none;
+    background-color: #333;
+    color: #fff;
+    height: 30px;
+    width: 60%; /* Rende la barra di ricerca più grande */
+    max-width: 500px; /* Limita la larghezza massima */
+}
+
+.search-button {
+    background-color: #141414;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    padding: 10px 12px;
+    cursor: pointer;
+    font-size: 30px;
+    transition: background-color 0.3s ease;
+}
+
+.search-button:hover {
+    background-color: #f40612;
+}
+
+/* Bottone My Account */
+.navbar-account {
+    margin-left: 20px; /* Aggiungi uno spazio dal resto */
+}
+
+.account-button {
+    background-color: #e50914;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.account-button:hover {
+    background-color: #f40612;
 }

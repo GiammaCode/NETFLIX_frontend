@@ -25,7 +25,7 @@ const Films = () => {
 
     return (
         <div className="films-container">
-            <h1 className="title">Films</h1>
+            <h1 className="title">All films</h1>
             <div className="films-row">
                 {films.map((film) => (
                     <div className="film-card" key={film.filmId}>
