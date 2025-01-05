@@ -14,13 +14,11 @@ const AppRouter = () => (
     <Router>
         {/* Navbar */}
         <Navbar />
-
         {/* Rotte */}
         <Routes>
             <Route path="/" element={<Welcome />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-
             <Route path="/Home" element={<Home />} />
             <Route path="/films" element={<Films />} />
             <Route path="/films/:filmId" element={<FilmDetails />} />
