@@ -1,0 +1,71 @@
+/* Colori principali Netflix */
+body {
+    background-color: #000!important;/* Sfondo nero */
+    color: #fff!important; /* Testo bianco */
+    font-family: Arial, sans-serif!important; /* Alternativa simile a Netflix Sans */
+    margin: 0;
+    padding: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: bold;
+}
+
+.card {
+    background-color: #141414!important; /* Sfondo grigio scuro */
+    color: #fff!important;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2)!important;
+}
+
+.btn-danger {
+    background-color: #e50914!important; /* Rosso Netflix */
+    border: none;
+}
+
+.btn-danger:hover {
+    background-color: #f40612!important; /* Rosso più acceso al passaggio del mouse */
+}
+
+.btn-outline-danger {
+    color: #e50914!important;
+    border: 1px solid #e50914!important;
+    background-color: transparent!important;
+}
+
+.btn-outline-danger:hover {
+    background-color: #e50914!important;
+    color: #fff!important;
+}
+
+input.form-control {
+    background-color: #333; /* Grigio scuro */
+    border: 1px solid #444; /* Bordo leggero */
+    color: #fff;
+}
+
+input.form-control:focus {
+    background-color: #444;
+    border: 1px solid #e50914;
+    color: #fff;
+}
+
+label {
+    font-size: 14px;
+}
+
+select.form-select {
+    background-color: #333;
+    border: 1px solid #444;
+    color: #fff;
+}
+
+select.form-select:focus {
+    border: 1px solid #e50914;
+}
+
+p.lead {
+    color: #ccc;
+}
+
