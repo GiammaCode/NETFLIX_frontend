@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import {getUser} from "../services/useService.js";
-import userApi from "../services/userAPI.js";
-import {useNavigate} from "react-router-dom";
+import { getUser } from "../services/useService.js";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
     const [email, setEmail] = useState("luca@pas");
@@ -9,15 +8,13 @@ const Login = () => {
     const [error, setError] = useState("");
     const navigate = useNavigate(); // Per il reindirizzamento
 
-
-
     const handleSubmit = async (e) => {
         e.preventDefault(); // Previene il ricaricamento della pagina
 
-
+        try {
             // Ottieni gli utenti dal database
             const users = await getUser();
-
+            console.log("Utenti ricevuti dal backend:", users);
 
             // Variabile per tracciare se l'utente è stato trovato
             let userFound = false;
@@ -31,17 +28,22 @@ const Login = () => {
 
             if (userFound) {
                 alert("Login riuscito!");
-                navigate("/Home");
+                navigate("/Home"); // Reindirizza alla homepage
             } else {
                 setError("Credenziali non valide."); // Mostra un messaggio di errore
             }
+        } catch (err) {
+            console.error("Errore durante il login:", err);
+            setError("Si è verificato un errore durante il login.");
+        }
     };
 
     return (
         <div className="d-flex justify-content-center align-items-center vh-100">
             <div className="card p-4" style={{ width: '400px' }}>
                 <h1 className="text-center mb-4">Sign In</h1>
-                <form>
+                {/* Usa onSubmit direttamente nel form */}
+                <form onSubmit={handleSubmit}>
                     <div className="mb-3">
                         <label htmlFor="email" className="form-label">
                             Email Address
@@ -68,11 +70,12 @@ const Login = () => {
                             required
                         />
                     </div>
-                    <button type="submit" className="btn btn-danger w-100"
-                    onClick={()=> handleSubmit()}>
+                    <button type="submit" className="btn btn-danger w-100">
                         Sign In
                     </button>
                 </form>
+                {/* Mostra un messaggio di errore se necessario */}
+                {error && <p className="text-danger mt-3">{error}</p>}
             </div>
         </div>
     );

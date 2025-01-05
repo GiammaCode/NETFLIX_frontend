@@ -27,7 +27,7 @@ export const getUser = async () => {
 export const postUser = async (userData) => {
     try {
         // "userData" è l'oggetto che desideri inviare al backend
-        const response = await userApi.post(); // POST request
+        const response = await userApi.post("/users/", userData); // POST request
         return response.data; // Restituisci i dati ottenuti, ad esempio l'utente creato
     } catch (error) {
         console.error("Error creating user:", error);

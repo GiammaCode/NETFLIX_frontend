@@ -1,26 +1,34 @@
 import React, { useState } from 'react';
-import {postUser} from "../services/useService.js";
+import { postUser } from "../services/useService.js";
 
 const Register = () => {
     const [formData, setFormData] = useState({
-        firstName: 'giammo',
-        lastName: 'gianmarini',
-        email: 'mare@pascara',
+        userId: 5,
+        name: 'giammo', // Deve corrispondere a "name" nel form
+        surname: 'gianmarini', // Deve corrispondere a "surname" nel form
         password: 'mare',
-        birthDate: '',
-        paymentMethod: '',
+        email: 'mare@pascara',
+        date_of_birth: '', // Deve corrispondere a "date_of_birth" nel form
+        paymentMethod: '', // Deve corrispondere a "paymentMethod" nel form
+        profiles: '1'
     });
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        setFormData((prev) => ({ ...prev, [name]: value }));
+        setFormData((prev) => ({ ...prev, [name]: value })); // Aggiorna dinamicamente lo stato
     };
 
-    const handleRegister = (e) => {
-        e.preventDefault();
+    const handleRegister = async (e) => {
+        e.preventDefault(); // Previene il ricaricamento della pagina
         console.log('Registration:', formData);
-        alert('Registration successful!');
-        const data = postUser(formData)
+
+        try {
+            await postUser(formData); // Invia i dati al backend
+            alert('Registration successful!');
+        } catch (error) {
+            //console.error("Error during registration:", error);
+            alert('Registration failed!');
+        }
     };
 
     return (
@@ -29,29 +37,29 @@ const Register = () => {
                 <h1 className="text-center mb-4">Sign Up</h1>
                 <form onSubmit={handleRegister}>
                     <div className="mb-3">
-                        <label htmlFor="firstName" className="form-label">
+                        <label htmlFor="name" className="form-label">
                             First Name
                         </label>
                         <input
                             type="text"
-                            id="firstName"
-                            name="firstName"
+                            id="name"
+                            name="name" // Deve corrispondere a "name" in formData
                             className="form-control"
-                            value={formData.firstName}
+                            value={formData.name}
                             onChange={handleInputChange}
                             required
                         />
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="lastName" className="form-label">
+                        <label htmlFor="surname" className="form-label">
                             Last Name
                         </label>
                         <input
                             type="text"
-                            id="lastName"
-                            name="lastName"
+                            id="surname"
+                            name="surname" // Deve corrispondere a "surname" in formData
                             className="form-control"
-                            value={formData.lastName}
+                            value={formData.surname}
                             onChange={handleInputChange}
                             required
                         />
@@ -63,7 +71,7 @@ const Register = () => {
                         <input
                             type="email"
                             id="email"
-                            name="email"
+                            name="email" // Deve corrispondere a "email" in formData
                             className="form-control"
                             value={formData.email}
                             onChange={handleInputChange}
@@ -77,7 +85,7 @@ const Register = () => {
                         <input
                             type="password"
                             id="password"
-                            name="password"
+                            name="password" // Deve corrispondere a "password" in formData
                             className="form-control"
                             value={formData.password}
                             onChange={handleInputChange}
@@ -85,15 +93,15 @@ const Register = () => {
                         />
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="birthDate" className="form-label">
+                        <label htmlFor="date_of_birth" className="form-label">
                             Birth Date
                         </label>
                         <input
                             type="date"
-                            id="birthDate"
-                            name="birthDate"
+                            id="date_of_birth"
+                            name="date_of_birth" // Deve corrispondere a "date_of_birth" in formData
                             className="form-control"
-                            value={formData.birthDate}
+                            value={formData.date_of_birth}
                             onChange={handleInputChange}
                             required
                         />
@@ -104,7 +112,7 @@ const Register = () => {
                         </label>
                         <select
                             id="paymentMethod"
-                            name="paymentMethod"
+                            name="paymentMethod" // Deve corrispondere a "paymentMethod" in formData
                             className="form-select"
                             value={formData.paymentMethod}
                             onChange={handleInputChange}
