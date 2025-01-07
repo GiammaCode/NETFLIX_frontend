@@ -30,16 +30,16 @@ const Navbar = () => {
                     <Link to="/Home">Home</Link>
                 </li>
                 <li>
-                    <Link to="/series">Serie TV</Link>
+                    <Link to="/series">Series</Link>
                 </li>
                 <li>
-                    <Link to="/films">Film</Link>
+                    <Link to="/films">Films</Link>
                 </li>
                 <li>
-                    <Link to="/new-popular">Nuovi e popolari</Link>
+                    <Link to="/new-popular">News & Popular</Link>
                 </li>
                 <li>
-                    <Link to="/my-list">La mia lista</Link>
+                    <Link to="/my-list">My list</Link>
                 </li>
             </ul>
 

@@ -36,7 +36,7 @@ const Films = () => {
                         onClick={() => navigate(`/films/${film.filmId}`)}
                     >
                         <img
-                            src="../../public/default_film_image.png" // Immagine di default
+                            src={film.image_path}
                             alt={film.title}
                             className="film-poster"
                         />
@@ -44,7 +44,7 @@ const Films = () => {
                             <h2>{film.title}</h2>
                             <p>{film.genre} | {film.release_year}</p>
                             <p>
-                                A captivating story that explores thrilling adventures and unforgettable moments.
+                                {film.description}
                             </p>
                         </div>
                     </div>
