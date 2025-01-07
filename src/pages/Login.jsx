@@ -14,7 +14,6 @@ const Login = () => {
         try {
             // Ottieni gli utenti dal database
             const users = await getUser();
-            console.log("Utenti ricevuti dal backend:", users);
 
             // Variabile per tracciare se l'utente è stato trovato
             let userFound = false;
@@ -23,12 +22,13 @@ const Login = () => {
             users.forEach((user) => {
                 if (user.email === email && user.password === password) {
                     userFound = true; // L'utente è stato trovato
+                    navigate(`/users/${user.userId}`); // Reindirizza alla homepage
+
                 }
             });
 
             if (userFound) {
                 alert("Login riuscito!");
-                navigate("/Home"); // Reindirizza alla homepage
             } else {
                 setError("Credenziali non valide."); // Mostra un messaggio di errore
             }

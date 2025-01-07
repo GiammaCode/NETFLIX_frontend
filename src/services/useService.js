@@ -34,3 +34,13 @@ export const postUser = async (userData) => {
         throw error; // Rilancia l'errore per gestirlo nel componente
     }
 };
+
+export const getProfiles = async (userID) => {
+    try {
+        const response = await userApi.get(`/users/${userID}/profiles`); // Assicurati che "/films" sia il percorso corretto nel backend
+        return response.data; // Restituisci i dati ottenuti
+    } catch (error) {
+        console.error("Error fetching profiles:", error);
+        throw error; // Rilancia l'errore per gestirlo nel componente
+    }
+};
