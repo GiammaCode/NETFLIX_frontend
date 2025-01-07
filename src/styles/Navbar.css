@@ -1,0 +1,62 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #000;
+    color: white;
+    padding: 0 20px;
+}
+
+.navbar-logo img {
+    height: 50px;
+    margin-left: 20px;
+}
+
+.navbar-links {
+    margin-top: 10px;
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.navbar-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.navbar-icons {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-search {
+    display: flex;
+    align-items: center;
+    background-color: #222;
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+
+.search-input {
+    border: none;
+    outline: none;
+    background-color: transparent;
+    color: white;
+    padding: 5px;
+    width: 300px;
+    font-size: 14px;
+}
+
+/* Rimuovi il pulsante di ricerca */
+.search-input::placeholder {
+    color: #aaa;
+}
+
+.account-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 20%;
+    margin-left: 20px;
+    margin-right: 30px;
+}

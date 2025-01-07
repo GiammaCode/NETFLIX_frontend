@@ -1,11 +1,56 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { getFilms } from "../services/useService";
+import {useNavigate} from "react-router-dom";
 
-const Home = () => {
+const Films = () => {
+    const [films, setFilms] = useState([]);
+    const [error, setError] = useState(null);
+    const navigate = useNavigate(); // Per il reindirizzamento
+
+    useEffect(() => {
+        const fetchFilms = async () => {
+            try {
+                const data = await getFilms();
+                setFilms(data);
+            } catch (err) {
+                setError("Failed to fetch films");
+            }
+        };
+
+        fetchFilms();
+    }, []);
+
+    if (error) {
+        return <div className="error">{error}</div>;
+    }
+
     return (
-        <div>
-            <h1>Welcome to Netflix Clone</h1>
+        <div className="films-container">
+            <h1 className="title">All films</h1>
+            <div className="films-row">
+                {films.map((film) => (
+                    <div
+                        className="film-card"
+                        key={film.filmId}
+                        onClick={() => navigate(`/films/${film.filmId}`)}
+                    >
+                        <img
+                            src="../../public/default_film_image.png" // Immagine di default
+                            alt={film.title}
+                            className="film-poster"
+                        />
+                        <div className="film-info">
+                            <h2>{film.title}</h2>
+                            <p>{film.genre} | {film.release_year}</p>
+                            <p>
+                                A captivating story that explores thrilling adventures and unforgettable moments.
+                            </p>
+                        </div>
+                    </div>
+                ))}
+            </div>
         </div>
     );
 };
 
-export default Home;
+export default Films;

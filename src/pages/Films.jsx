@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getFilms } from "../services/useService";
-import "../styles/Components.css";
+import "../styles/Films.css";
 import {useNavigate} from "react-router-dom";
 
 const Films = () => {

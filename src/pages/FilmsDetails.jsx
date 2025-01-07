@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import "../styles/Components.css";
+import "../styles/Films.css";
 
 const FilmDetails = () => {
     const { filmId } = useParams(); // Ottieni l'ID del film dalla rotta
