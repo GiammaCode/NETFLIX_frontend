@@ -25,7 +25,7 @@ const AppRouter = () => (
             <Route path="/users/:userId/profiles/:profileId/Home" element={<Home />} />
             <Route path="/users/:userId/profiles/:profileId/films" element={<Films />} />
             <Route path="/users/:userId/profiles/:profileId/films/:filmId" element={<FilmDetails />} />
-            <Route path="/users/:userId/profiles/:profileId/actors/:actorId" element={<ActorDetails />} />
+            <Route path="/users/:userId/profiles/:profileId/films/:filmId/actors/:actorId" element={<ActorDetails />} />
             <Route path="/users/:userId/profiles/:profileId/profileSettings" element={<ProfileSettings />} />
         </Routes>
     </Router>

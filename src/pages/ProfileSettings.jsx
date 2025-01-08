@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from "react-router-dom";
-import { getProfile, putProfile, deleteProfile } from "../services/useService.js";
-import "../styles/ProfileSettings.css";
+
+import React, {useEffect, useState} from 'react';
+import {useNavigate, useParams} from "react-router-dom";
+import {getProfile, putProfile, deleteProfile} from "../services/useService.js";
+import "../styles/ProfileSettings.css"
+import Navbar from "../components/Navbar.jsx";
 
 const ProfileSettings = () => {
-    const { userId } = useParams(); // Ottieni l'ID dell'utente dalla rotta
-    const { profileId } = useParams(); // Ottieni l'ID del profilo dalla rotta
-    const navigate = useNavigate();
+    const {userId} = useParams(); // Ottieni l'ID del film dalla rotta
+    const {profileId} = useParams(); // Ottieni l'ID del film dalla rotta  const navigate = useNavigate();
+    const navigate = useNavigate()
     const [profileData, setProfileData] = useState({
         nickname: '',
         profileImage: ''
@@ -79,57 +81,59 @@ const ProfileSettings = () => {
     };
 
     return (
-        <div className="profile-settings-container">
-            <h1 className="text-center">Profile Settings</h1>
-            <form onSubmit={handleUpdateProfile} className="profile-settings-form">
-                <div className="form-group">
-                    <label htmlFor="nickname">Nickname</label>
-                    <input
-                        type="text"
-                        id="nickname"
-                        className="form-control"
-                        placeholder="Enter new nickname"
-                        value={profileData.nickname}
-                        onChange={(e) => handleChange("nickname", e.target.value)}
-                        required
-                    />
-                </div>
-
-                <div className="form-group">
-                    <label>Choose a Profile Picture</label>
-                    <div className="profile-images">
-                        {profileImages.map((image, index) => (
-                            <img
-                                key={index}
-                                src={image}
-                                alt={`Image${index + 1}`}
-                                className={`profile-image ${
-                                    profileData.profileImage === image ? "selected" : ""
-                                }`}
-                                onClick={() => handleChange("profileImage", image)}
-                            />
-                        ))}
+        <div>
+            <Navbar/>
+            <div className="profile-settings-container">
+                <h1 className="text-center">Profile Settings</h1>
+                <form onSubmit={handleUpdateProfile} className="profile-settings-form">
+                    <div className="form-group">
+                        <label htmlFor="nickname">Nickname</label>
+                        <input
+                            type="text"
+                            id="nickname"
+                            className="form-control"
+                            placeholder="Enter new nickname"
+                            value={profileData.nickname}
+                            onChange={(e) => handleChange("nickname", e.target.value)}
+                            required
+                        />
                     </div>
-                </div>
 
-                <button type="submit" className="btn btn-primary btn-block">
-                    Save Changes
+                    <div className="form-group">
+                        <label>Choose a Profile Picture</label>
+                        <div className="profile-images">
+                            {profileImages.map((image, index) => (
+                                <img
+                                    key={index}
+                                    src={image}
+                                    alt={`Image${index + 1}`}
+                                    className={`profile-image ${
+                                        profileData.profileImage === image ? "selected" : ""
+                                    }`}
+                                    onClick={() => handleChange("profileImage", image)}
+                                />
+                            ))}
+                        </div>
+                    </div>
+
+                    <button type="submit" className="btn btn-primary btn-block">
+                        Save Changes
+                    </button>
+                </form>
+
+                <button
+                    className="btn btn-danger btn-block mt-5"
+                    onClick={handleDeleteProfile}
+                >
+                    Delete Profile
                 </button>
-            </form>
-
-            <button
-                className="btn btn-danger btn-block mt-5"
-                onClick={handleDeleteProfile}
-            >
-                Delete Profile
-            </button>
-
             <button
                 className="btn btn-info btn-block mt-5 mx-3"
                 onClick={handleLogout}
             >
                 Logout
             </button>
+        </div>
         </div>
     );
 };

@@ -63,7 +63,7 @@ const FilmDetails = () => {
             <div className="film-details-container">
                 <div className="film-cover">
                     <img
-                        src={film.image_path || "../../public/default_film_image.png"}
+                        src={film.image_path || "/Film-default.png"}
                         alt={film.title}
                         className="film-cover-image"
                     />

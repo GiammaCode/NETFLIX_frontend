@@ -36,7 +36,7 @@ const Navbar = () => {
             <div className="navbar-logo">
                 <Link to={`/users/${userId}/profiles/${profileId}/Home`}>
                     <img
-                        src="../../public/logo_netflix.png"
+                        src="/logo_netflix.png"
                         alt="Netflix Logo"
                         className="logo"
                     />
@@ -49,16 +49,16 @@ const Navbar = () => {
                     <Link to={`/users/${userId}/profiles/${profileId}/Home`}>Home</Link>
                 </li>
                 <li>
-                    <Link to={`/users/${userId}/profiles/${profileId}/series`}>Series</Link>
+                    <span className="navbar-disabled">Series</span>
                 </li>
                 <li>
                     <Link to={`/users/${userId}/profiles/${profileId}/films`}>Films</Link>
                 </li>
                 <li>
-                    <Link to={`/users/${userId}/profiles/${profileId}/new-popular`}>News & Popular</Link>
+                    <span className="navbar-disabled">News & Popular</span>
                 </li>
                 <li>
-                    <Link to={`/users/${userId}/profiles/${profileId}/My-list`}>My list</Link>
+                    <span className="navbar-disabled">My List</span>
                 </li>
             </ul>
 
@@ -78,7 +78,7 @@ const Navbar = () => {
                 <div className="navbar-icons-right">
                     <Link to={`/users/${userId}/profiles/${profileId}/profileSettings`}>
                         <img
-                            src={profileImage} // Usa immagine recuperata o default
+                            src={profileImage}
                             alt="Account"
                             className="account-icon"
                         />

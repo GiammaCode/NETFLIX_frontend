@@ -54,7 +54,7 @@ const ActorDetails = () => {
             <div className="actor-details-container">
                 <div className="actor-header">
                     <img
-                        src="../../public/actor_default.png" // Immagine di default
+                        src="/actor_default.png" // Immagine di default
                         alt={`${actor.name} ${actor.surname}`}
                         className="actor-image"
                     />
