@@ -44,3 +44,14 @@ export const getProfiles = async (userID) => {
         throw error; // Rilancia l'errore per gestirlo nel componente
     }
 };
+
+export const postProfile = async (userID,userData) => {
+    try {
+        // "userData" è l'oggetto che desideri inviare al backend
+        const response = await userApi.post(`/users/${userID}/profiles`, userData); // POST request
+        return response.data; // Restituisci i dati ottenuti, ad esempio l'utente creato
+    } catch (error) {
+        console.error("Error creating profile:", error);
+        throw error; // Rilancia l'errore per gestirlo nel componente
+    }
+};

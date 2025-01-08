@@ -2,11 +2,18 @@ import React, { useState, useEffect } from "react";
 import {getProfiles} from "../services/useService.js";
 import {useNavigate, useParams} from "react-router-dom";
 import "../styles/Profile.css"
+import Counter from "../components/Counter.jsx";
+
+const counterInstance = new Counter(); // Istanza condivisa della classe Counter
+
 function ProfileSelection() {
     const { userId } = useParams(); // Ottieni l'ID del film dalla rotta
     const [profiles, setProfiles] = useState([]); // Stato per i profili
     const [error, setError] = useState("");
     const navigate = useNavigate(); // Per il reindirizzamento
+    const [currentCount, setCurrentCount] = useState(counterInstance.getCount());
+
+
 
     // Recupera i profili quando il componente viene caricato
     useEffect(() => {
@@ -15,7 +22,7 @@ function ProfileSelection() {
                 const fetchedProfiles = await getProfiles(userId);
                 setProfiles(fetchedProfiles);
             } catch (err) {
-                setError("Errore durante il recupero dei profili.");
+                setError("Error during the charging profiles ")
             }
         };
 
@@ -23,11 +30,15 @@ function ProfileSelection() {
     }, [userId]);
 
     const handleProfileClick = (profileId) => {
-        alert(`Profilo selezionato: ${profileId}`);
+        if (profileId === "add-new") {
+            counterInstance.increase();
+            setCurrentCount(counterInstance.getCount()); // Aggiorna lo stato con il nuovo valore
+            navigate(`/users/${userId}/profiles/${currentCount}/createProfiles`)
+        }else {alert(`Profile selected: ${profileId}`);
         // Puoi aggiungere la logica per salvare il profilo selezionato
         // o reindirizzare a un'altra schermata
         navigate(`/users/${userId}/profiles/${profileId}/Home`); // Redirezione esempio
-    };
+    }};
 
     return (
         <div className="profile-selection">
@@ -47,6 +58,17 @@ function ProfileSelection() {
                         <h3 className="text-light">{profile.nickname}</h3>
                     </div>
                 ))}
+                <div
+                    className="profile-card text-center"
+                    onClick={() => handleProfileClick("add-new")}
+                >
+                    <img
+                        src="https://via.placeholder.com/150?text=Add+New"
+                        alt="Add New"
+                        className="profile-avatar"
+                    />
+                    <h3 className="text-light">Add Profile</h3>
+                </div>
             </div>
         </div>
     );
