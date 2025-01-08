@@ -6,6 +6,8 @@ import Navbar from "../components/Navbar.jsx";
 const FilmDetails = () => {
     const {filmId} = useParams(); // Ottieni l'ID del film dalla rotta
     const [film, setFilm] = useState(null);
+    const { userId } = useParams(); // Ottieni l'ID del film dalla rotta
+    const { profileId } = useParams(); // Ottieni l'ID del film dalla rotta
     const [actors, setActors] = useState([]); // Stato per gli attori
     const [error, setError] = useState(null);
 
@@ -79,7 +81,7 @@ const FilmDetails = () => {
                             {actors.length > 0
                                 ? actors.map(actor => (
                                     <li key={actor.id}>
-                                        <Link to={`/actors/${actor.id}`}>{actor.name}</Link>
+                                        <Link to={`/users/${userId}/profiles/${profileId}/films/${film.filmId}/actors/${actor.id}`}>{actor.name}</Link>
                                     </li>
                                 ))
                                 : "Non disponibile"}
