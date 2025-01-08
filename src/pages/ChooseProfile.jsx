@@ -54,7 +54,7 @@ function ProfileSelection() {
                     <div
                         key={profile.profileId}
                         className="profile-card text-center"
-                        onClick={() => handleProfileClick(profile.nickname)}
+                        onClick={() => handleProfileClick(profile.profileId)}
                     >
                         <img
                             src={profile.profileImage}
