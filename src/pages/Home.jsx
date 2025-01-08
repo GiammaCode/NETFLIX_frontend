@@ -1,69 +1,111 @@
 import React, { useEffect, useState } from "react";
-import { getFilms } from "../services/useService"; // Importing the function to fetch films from the backend
-import { useNavigate } from "react-router-dom"; // Importing the hook for navigation
-import Navbar from "../components/Navbar.jsx"; // Importing Navbar component
+import {getRecommendedFilms, getViewedFilms} from "../services/useService"; // Import the new service
+import { useParams, useNavigate } from "react-router-dom"; // Import hooks for routing
+import Navbar from "../components/Navbar.jsx"; // Import Navbar
 
 /**
- * Films component displays a list of films fetched from the backend.
- * Each film is shown as a card with a title, genre, release year, and a default description.
- * Clicking on a film navigates to its detailed page.
+ * Home component displays viewed films fetched from the backend.
  *
  * @component
  */
-const Films = () => {
-    const [films, setFilms] = useState([]); // State to store the list of films
-    const [error, setError] = useState(null); // State to store error messages
-    const navigate = useNavigate(); // Hook for navigation to other pages
+const Home = () => {
+    const { userId, profileId } = useParams(); // Retrieve userId and profileId from the route
+    const [viewedFilms, setViewedFilms] = useState([]); // State for viewed films
+    const [recommendedFilms, setRecommendedFilms] = useState([]); // State for viewed films
+    const [error, setError] = useState(null); // State for errors
+    const navigate = useNavigate(); // Navigation hook
 
-    // Fetch the list of films when the component is mounted
     useEffect(() => {
-        const fetchFilms = async () => {
+        const fetchViewedFilms = async () => {
             try {
-                const data = await getFilms(); // Fetch the list of films
-                setFilms(data); // Store the films in the state
+                const data = await getViewedFilms(userId, profileId); // Fetch viewed films
+                setViewedFilms(data); // Update state
             } catch (err) {
-                setError("Failed to fetch films"); // Handle errors by setting an error message
+                setError("Failed to fetch viewed films"); // Handle errors
+            }
+        };
+        const fetchRecommendedFilms = async () => {
+            try {
+                const data = await getRecommendedFilms(userId, profileId); // Fetch viewed films
+                setRecommendedFilms(data); // Update state
+            } catch (err) {
+                setError("Failed to fetch recommended films"); // Handle errors
             }
         };
 
-        fetchFilms(); // Call the function to fetch the films
-    }, []); // Empty dependency array to run this effect only once when the component mounts
+        fetchViewedFilms(); // Fetch films on component mount
+        fetchRecommendedFilms()
+    }, [userId, profileId]);
 
-    // If there's an error, display it
     if (error) {
-        return <div className="error">{error}</div>; // Display the error message if fetch failed
+        return <div className="error">{error}</div>; // Show error message
     }
 
     return (
         <div>
-            <Navbar /> {/* Render the Navbar component */}
-            <div className="films-container">
-                <h1 className="title">All films</h1> {/* Title for the films list */}
+            <Navbar /> {/* Navbar at the top */}
+            <div className="home-container">
+                <h1 className="title">Continue Watching</h1>
                 <div className="films-row">
-                    {films.map((film) => (
-                        <div
-                            className="film-card" // Class for styling each film card
-                            key={film.filmId} // Unique key for each film card
-                            onClick={() => navigate(`/films/${film.filmId}`)} // Navigate to the film details page when clicked
-                        >
-                            <img
-                                src="../../public/default_film_image.png" // Default image for the film (placeholder image)
-                                alt={film.title} // Alt text for the image
-                                className="film-poster" // Styling class for the film poster image
-                            />
-                            <div className="film-info">
-                                <h2>{film.title}</h2> {/* Film title */}
-                                <p>{film.genre} | {film.release_year}</p> {/* Film genre and release year */}
-                                <p>
-                                    A captivating story that explores thrilling adventures and unforgettable moments.
-                                </p> {/* Default film description */}
+                    {viewedFilms.length > 0 ? (
+                        viewedFilms.map((film) => (
+                            <div
+                                className="film-card"
+                                key={film.filmId}
+                                onClick={() => navigate(`/films/${film.filmId}`)}
+                            >
+                                <img
+                                    src={film.filmDetails.image_path || "/default_film_image.png"}
+                                    alt={film.filmDetails.title}
+                                    className="film-poster"
+                                />
+                                <div className="film-info">
+                                    <h2>{film.filmDetails.title}</h2>
+                                    <p>{film.filmDetails.genre} | {film.filmDetails.release_year}</p>
+                                    <p>
+                                        {film.filmDetails.description.length > 100
+                                            ? `${film.filmDetails.description.substring(0, 100)}...`
+                                            : film.filmDetails.description}
+                                    </p>
+                                </div>
                             </div>
-                        </div>
-                    ))}
+                        ))
+                    ) : (
+                        <p>No films found.</p>
+                    )}
+                </div>
+                <h1 className="title">Recommended for you</h1>
+                <div className="filmsg-row">
+                    {recommendedFilms.length > 0 ? (
+                        recommendedFilms.map((film) => (
+                            <div
+                                className="film-card"
+                                key={film.filmId}
+                                onClick={() => navigate(`/films/${film.filmId}`)}
+                            >
+                                <img
+                                    src={film.filmDetails.image_path || "/default_film_image.png"}
+                                    alt={film.filmDetails.title}
+                                    className="film-poster"
+                                />
+                                <div className="film-info">
+                                    <h2>{film.filmDetails.title}</h2>
+                                    <p>{film.filmDetails.genre} | {film.filmDetails.release_year}</p>
+                                    <p>
+                                        {film.filmDetails.description.length > 100
+                                            ? `${film.filmDetails.description.substring(0, 100)}...`
+                                            : film.filmDetails.description}
+                                    </p>
+                                </div>
+                            </div>
+                        ))
+                    ) : (
+                        <p>No films found.</p>
+                    )}
                 </div>
             </div>
         </div>
     );
 };
 
-export default Films;
+export default Home;

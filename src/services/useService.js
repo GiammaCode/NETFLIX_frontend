@@ -1,5 +1,6 @@
 import api from "./api"; // Import the base API instance for general requests (e.g., films).
 import userApi from "./userAPI.js"; // Import the user-specific API instance for user and profile management.
+import viewApi from "./viewApi.js"
 
 /**
  * Fetches all films from the backend.
@@ -129,5 +130,39 @@ export const deleteProfile = async (userID, profileID) => {
     } catch (error) {
         console.error("Error deleting profile:", error);
         throw error; // Rethrow the error to be handled in the component.
+    }
+};
+
+/**
+ * Fetches viewed films for a specific user and profile from the backend.
+ * @param {number} userId - The ID of the user.
+ * @param {number} profileId - The ID of the profile.
+ * @returns {Promise<Array>} A promise that resolves to an array of viewed films.
+ * @throws Will throw an error if the API call fails.
+ */
+export const getViewedFilms = async (userId, profileId) => {
+    try {
+        const response = await viewApi.get(`/users/${userId}/profiles/${profileId}/views`); // API call
+        return response.data; // Return viewed films
+    } catch (error) {
+        console.error("Error fetching viewed films:", error);
+        throw error; // Rethrow the error to handle it in the component
+    }
+};
+
+/**
+ * Fetches recommended films for a specific user and profile from the backend.
+ * @param {number} userId - The ID of the user.
+ * @param {number} profileId - The ID of the profile.
+ * @returns {Promise<Array>} A promise that resolves to an array of recommended films.
+ * @throws Will throw an error if the API call fails.
+ */
+export const getRecommendedFilms = async (userId, profileId) => {
+    try {
+        const response = await viewApi.get(`/users/${userId}/profiles/${profileId}/recommendeds`); // API call
+        return response.data; // Return recommended films
+    } catch (error) {
+        console.error("Error fetching viewed films:", error);
+        throw error; // Rethrow the error to handle it in the component
     }
 };
