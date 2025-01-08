@@ -1,11 +1,28 @@
-import React, { useState } from "react";
-import {Link, useParams} from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
 import "../styles/Navbar.css";
+import { getProfile } from "../services/useService.js";
 
 const Navbar = () => {
     const [searchQuery, setSearchQuery] = useState("");
-    const { userId } = useParams(); // Ottieni l'ID del film dalla rotta
-    const { profileId } = useParams(); // Ottieni l'ID del film dalla rotta
+    const [profileImage, setProfileImage] = useState(""); // Stato per immagine del profilo
+    const { userId } = useParams(); // Ottieni l'ID dell'utente dalla rotta
+    const { profileId } = useParams(); // Ottieni l'ID del profilo dalla rotta
+
+    useEffect(() => {
+        const fetchProfile = async () => {
+            try {
+                const profileData = await getProfile(userId, profileId);
+                if (profileData && profileData.profileImage) {
+                    setProfileImage(profileData.profileImage); // Imposta l'immagine del profilo
+                }
+            } catch (error) {
+                console.error("Errore nel recupero del profilo:", error);
+            }
+        };
+
+        fetchProfile();
+    }, [userId, profileId]); // L'effetto si attiva quando userId o profileId cambia
 
     const handleSearchSubmit = (event) => {
         event.preventDefault(); // Previene il ricaricamento della pagina
@@ -61,7 +78,7 @@ const Navbar = () => {
                 <div className="navbar-icons-right">
                     <Link to={`/users/${userId}/profiles/${profileId}/profileSettings`}>
                         <img
-                            src="/Profile-default.png"
+                            src={profileImage}
                             alt="Account"
                             className="account-icon"
                         />
