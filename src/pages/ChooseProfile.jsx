@@ -13,6 +13,7 @@ function ProfileSelection() {
     const navigate = useNavigate(); // Per il reindirizzamento
     const [currentCount, setCurrentCount] = useState(counterInstance.getCount());
 
+    // Trova il profileId più alto
 
 
     // Recupera i profili quando il componente viene caricato
@@ -20,6 +21,7 @@ function ProfileSelection() {
         const fetchProfiles = async () => {
             try {
                 const fetchedProfiles = await getProfiles(userId);
+
                 setProfiles(fetchedProfiles);
             } catch (err) {
                 setError("Error during the charging profiles ")
@@ -29,11 +31,14 @@ function ProfileSelection() {
         fetchProfiles();
     }, [userId]);
 
+
+
     const handleProfileClick = (profileId) => {
         if (profileId === "add-new") {
-            counterInstance.increase();
-            setCurrentCount(counterInstance.getCount()); // Aggiorna lo stato con il nuovo valore
-            navigate(`/users/${userId}/profiles/${currentCount}/createProfiles`)
+            const maxProfileId = profiles.length > 0
+                ? Math.max(...profiles.map((profile) => profile.profileId))
+                : 0; // Aggiorna lo stato con il nuovo valore
+            navigate(`/users/${userId}/profiles/${maxProfileId+1}/createProfiles`)
         }else {alert(`Profile selected: ${profileId}`);
         // Puoi aggiungere la logica per salvare il profilo selezionato
         // o reindirizzare a un'altra schermata
