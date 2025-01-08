@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { getFilms } from "../services/useService";
+import React, {useEffect, useState} from "react";
+import {getFilms} from "../services/useService";
 import {useNavigate} from "react-router-dom";
+import Navbar from "../components/Navbar.jsx";
 
 const Films = () => {
     const [films, setFilms] = useState([]);
@@ -25,29 +26,32 @@ const Films = () => {
     }
 
     return (
-        <div className="films-container">
-            <h1 className="title">All films</h1>
-            <div className="films-row">
-                {films.map((film) => (
-                    <div
-                        className="film-card"
-                        key={film.filmId}
-                        onClick={() => navigate(`/films/${film.filmId}`)}
-                    >
-                        <img
-                            src="../../public/default_film_image.png" // Immagine di default
-                            alt={film.title}
-                            className="film-poster"
-                        />
-                        <div className="film-info">
-                            <h2>{film.title}</h2>
-                            <p>{film.genre} | {film.release_year}</p>
-                            <p>
-                                A captivating story that explores thrilling adventures and unforgettable moments.
-                            </p>
+        <div>
+            <Navbar/>
+            <div className="films-container">
+                <h1 className="title">All films</h1>
+                <div className="films-row">
+                    {films.map((film) => (
+                        <div
+                            className="film-card"
+                            key={film.filmId}
+                            onClick={() => navigate(`/films/${film.filmId}`)}
+                        >
+                            <img
+                                src="../../public/default_film_image.png" // Immagine di default
+                                alt={film.title}
+                                className="film-poster"
+                            />
+                            <div className="film-info">
+                                <h2>{film.title}</h2>
+                                <p>{film.genre} | {film.release_year}</p>
+                                <p>
+                                    A captivating story that explores thrilling adventures and unforgettable moments.
+                                </p>
+                            </div>
                         </div>
-                    </div>
-                ))}
+                    ))}
+                </div>
             </div>
         </div>
     );

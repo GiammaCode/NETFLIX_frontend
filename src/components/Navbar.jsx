@@ -5,7 +5,7 @@ import "../styles/Navbar.css";
 const Navbar = () => {
     const [searchQuery, setSearchQuery] = useState("");
     const { userId } = useParams(); // Ottieni l'ID del film dalla rotta
-    const { profileId } = useParams(); // Ottieni l'I
+    const { profileId } = useParams(); // Ottieni l'ID del film dalla rotta
 
     const handleSearchSubmit = (event) => {
         event.preventDefault(); // Previene il ricaricamento della pagina
@@ -17,7 +17,7 @@ const Navbar = () => {
         <nav className="navbar">
             {/* Logo Netflix */}
             <div className="navbar-logo">
-                <Link to="/Home">
+                <Link to={`/users/${userId}/profiles/${profileId}/Home`}>
                     <img
                         src="../../public/logo_netflix.png"
                         alt="Netflix Logo"
@@ -29,19 +29,19 @@ const Navbar = () => {
             {/* Collegamenti */}
             <ul className="navbar-links">
                 <li>
-                    <Link to="/Home">Home</Link>
+                    <Link to={`/users/${userId}/profiles/${profileId}/Home`}>Home</Link>
                 </li>
                 <li>
-                    <Link to="/series">Series</Link>
+                    <Link to={`/users/${userId}/profiles/${profileId}/series`}>Series</Link>
                 </li>
                 <li>
-                    <Link to="/films">Films</Link>
+                    <Link to={`/users/${userId}/profiles/${profileId}/films`}>Films</Link>
                 </li>
                 <li>
-                    <Link to="/new-popular">News & Popular</Link>
+                    <Link to={`/users/${userId}/profiles/${profileId}/new-popular`}>News & Popular</Link>
                 </li>
                 <li>
-                    <Link to="/my-list">My list</Link>
+                    <Link to={`/users/${userId}/profiles/${profileId}/My-list`}>My list</Link>
                 </li>
             </ul>
 
