@@ -19,7 +19,7 @@ const Navbar = () => {
             <div className="navbar-logo">
                 <Link to={`/users/${userId}/profiles/${profileId}/Home`}>
                     <img
-                        src="../../public/logo_netflix.png"
+                        src="/logo_netflix.png"
                         alt="Netflix Logo"
                         className="logo"
                     />
@@ -61,7 +61,7 @@ const Navbar = () => {
                 <div className="navbar-icons-right">
                     <Link to={`/users/${userId}/profiles/${profileId}/profileSettings`}>
                         <img
-                            src="../../public/profile_default.png"
+                            src="/Profile-default.png"
                             alt="Account"
                             className="account-icon"
                         />
