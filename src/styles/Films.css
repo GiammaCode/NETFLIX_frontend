@@ -25,6 +25,10 @@
     border-radius: 8px;
     overflow: hidden;
     transition: transform 0.2s;
+    height: 500px; /* Altezza uniforme */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .film-card:hover {
@@ -43,6 +47,7 @@
 .film-info {
     padding: 10px;
     text-align: left;
+    flex-grow: 1; /* Occupa lo spazio disponibile */
 }
 
 .film-info h2 {
@@ -54,7 +59,10 @@
     font-size: 14px;
     margin: 0;
     color: #ccc;
+    line-height: 1.5; /* Spaziatura leggibile */
+    overflow: hidden; /* Nasconde eventuali overflow */
 }
+
 /* Navbar */
 .navbar {
     padding: 0 20px;
