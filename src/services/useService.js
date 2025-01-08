@@ -52,3 +52,33 @@ export const postProfile = async (userID,userData) => {
         throw error; // Rilancia l'errore per gestirlo nel componente
     }
 };
+
+export const getProfile = async (userID, profileID) => {
+    try {
+        const response = await userApi.get(`/users/${userID}/profiles/${profileID}`); // Assicurati che "/films" sia il percorso corretto nel backend
+        return response.data; // Restituisci i dati ottenuti
+    } catch (error) {
+        console.error("Error fetching profiles:", error);
+        throw error; // Rilancia l'errore per gestirlo nel componente
+    }
+};
+
+export const putProfile = async (userID, profileID,profileData) => {
+    try {
+        const response = await userApi.put(`/users/${userID}/profiles/${profileID}`,profileData); // Assicurati che "/films" sia il percorso corretto nel backend
+        return response.data; // Restituisci i dati ottenuti
+    } catch (error) {
+        console.error("Error fetching profiles:", error);
+        throw error; // Rilancia l'errore per gestirlo nel componente
+    }
+};
+
+export const deleteProfile = async (userID, profileID,profileData) => {
+    try {
+        const response = await userApi.delete(`/users/${userID}/profiles/${profileID}`); // Assicurati che "/films" sia il percorso corretto nel backend
+        return response.data; // Restituisci i dati ottenuti
+    } catch (error) {
+        console.error("Error fetching profiles:", error);
+        throw error; // Rilancia l'errore per gestirlo nel componente
+    }
+};

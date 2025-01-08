@@ -7,10 +7,10 @@ import FilmDetails from "../pages/FilmsDetails.jsx";
 import Register from "../pages/Register.jsx";
 import Login from "../pages/Login.jsx";
 import Welcome from "../pages/Welcome.jsx";
-import '../styles/resister&login.css';
 import ActorDetails from "../pages/ActorDetails.jsx";
 import CreateProfile from "../pages/CreateProfile.jsx";
 import ChooseProfile from "../pages/ChooseProfile.jsx";
+import ProfileSettings from "../pages/ProfileSettings.jsx";
 
 
 const AppRouter = () => (
@@ -26,7 +26,7 @@ const AppRouter = () => (
             <Route path="/users/:userId/profiles/:profileId/films" element={<Films />} />
             <Route path="/users/:userId/profiles/:profileId/films/:filmId" element={<FilmDetails />} />
             <Route path="/users/:userId/profiles/:profileId/actors/:actorId" element={<ActorDetails />} />
-            {/*<Route path="/users/:userId/profiles/:profileId/profileSettings" element={<ProfileSettings />} />*/}
+            <Route path="/users/:userId/profiles/:profileId/profileSettings" element={<ProfileSettings />} />
         </Routes>
     </Router>
 );
