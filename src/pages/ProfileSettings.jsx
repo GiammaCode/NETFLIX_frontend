@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from "react-router-dom";
 import { getProfile, putProfile, deleteProfile } from "../services/useService.js";
-import "../styles/ProfileSettings.css"
+import "../styles/ProfileSettings.css";
 
 const ProfileSettings = () => {
-    const { userId } = useParams(); // Ottieni l'ID del film dalla rotta
-    const { profileId } = useParams(); // Ottieni l'ID del film dalla rotta  const navigate = useNavigate();
-   const navigate = useNavigate()
+    const { userId } = useParams(); // Ottieni l'ID dell'utente dalla rotta
+    const { profileId } = useParams(); // Ottieni l'ID del profilo dalla rotta
+    const navigate = useNavigate();
     const [profileData, setProfileData] = useState({
         nickname: '',
         profileImage: ''
@@ -70,6 +70,14 @@ const ProfileSettings = () => {
         }
     };
 
+    // Gestisce il logout
+    const handleLogout = () => {
+        // Esegui la logica di logout (es. rimuovere token o sessione)
+        localStorage.removeItem("authToken"); // Rimuove un possibile token di autenticazione
+        alert("You have been logged out!");
+        navigate("/"); // Naviga verso la pagina di login
+    };
+
     return (
         <div className="profile-settings-container">
             <h1 className="text-center">Profile Settings</h1>
@@ -114,6 +122,13 @@ const ProfileSettings = () => {
                 onClick={handleDeleteProfile}
             >
                 Delete Profile
+            </button>
+
+            <button
+                className="btn btn-info btn-block mt-5 mx-3"
+                onClick={handleLogout}
+            >
+                Logout
             </button>
         </div>
     );
