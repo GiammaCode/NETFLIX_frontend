@@ -16,9 +16,9 @@ function CreateProfile({ onSubmit }) {
 
 
     const profileImages = [
-        "../../public/sfondo1.png",
-        "../../public/sfondo2.png",
-        "../../public/sfondo3.png"
+        "/sfondo1.png",
+        "/sfondo2.png",
+        "/sfondo3.png"
     ];
 
     const handleChange = (field, value) => {
@@ -69,7 +69,7 @@ function CreateProfile({ onSubmit }) {
                         {profileImages.map((image, index) => (
                             <img
                                 key={index}
-                                src= "../../public/sfondo1.png"
+                                src={image}
                                 alt={`Image${index + 1}`}
                                 className={`profile-image ${
                                     formData.profileImage === image ? "selected" : ""

@@ -2,9 +2,7 @@
     max-width: 500px;
     margin: 50px auto;
     padding: 20px;
-    border: 1px solid #ccc;
     border-radius: 8px;
-    background-color: #f9f9f9;
 }
 
 .profile-settings-form .form-group {
@@ -29,4 +27,25 @@
 
 .profile-image.selected {
     border: 2px solid #007bff;
+}
+
+.delete-button {
+    position: absolute;
+    bottom: 20px; /* Posiziona in basso */
+    left: 20px; /* Posiziona a sinistra */
+    padding: 10px 20px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.delete-button:hover {
+    background-color: #a71d2a;
+}
+
+.profile-settings-container {
+    position: relative; /* Per consentire il posizionamento assoluto del pulsante Delete */
 }
