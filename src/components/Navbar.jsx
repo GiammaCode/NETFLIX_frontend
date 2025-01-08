@@ -3,37 +3,60 @@ import { Link, useParams } from "react-router-dom";
 import "../styles/Navbar.css";
 import { getProfile } from "../services/useService.js";
 
+/**
+ * Navbar component that displays a navigation bar for a streaming service like Netflix.
+ * It includes links to different sections of the app (e.g., Home, Films) and a search bar.
+ * The profile image is fetched from an API and displayed in the account section.
+ *
+ * @component
+ */
 const Navbar = () => {
+    // State for the search query and profile image
     const [searchQuery, setSearchQuery] = useState("");
-    const [profileImage, setProfileImage] = useState(""); // Stato per immagine del profilo
-    const { userId } = useParams(); // Ottieni l'ID dell'utente dalla rotta
-    const { profileId } = useParams(); // Ottieni l'ID del profilo dalla rotta
+    const [profileImage, setProfileImage] = useState(""); // State for storing the profile image URL
 
+    // Using useParams to get the dynamic userId and profileId from the URL params
+    const { userId } = useParams(); // Get the userId from the route parameters
+    const { profileId } = useParams(); // Get the profileId from the route parameters
+
+    /**
+     * useEffect hook that fetches the profile data when the userId or profileId changes.
+     * It retrieves the profile image from an API (using getProfile service) and sets it to state.
+     */
     useEffect(() => {
         const fetchProfile = async () => {
             try {
+                // Fetching the profile data using the userId and profileId
                 const profileData = await getProfile(userId, profileId);
                 if (profileData && profileData.profileImage) {
-                    setProfileImage(profileData.profileImage); // Imposta l'immagine del profilo
+                    // If profileImage exists, set it to the state
+                    setProfileImage(profileData.profileImage);
                 }
             } catch (error) {
-                console.error("Errore nel recupero del profilo:", error);
+                // If there's an error fetching the profile, log it
+                console.error("Error fetching profile:", error);
             }
         };
 
-        fetchProfile();
-    }, [userId, profileId]); // L'effetto si attiva quando userId o profileId cambia
+        fetchProfile(); // Trigger the function to fetch the profile
+    }, [userId, profileId]); // Dependency array: the effect runs whenever userId or profileId changes
 
+    /**
+     * Handles the submission of the search form.
+     * It prevents the default form submission and resets the search input.
+     * @param {Event} event - The submit event from the search form.
+     */
     const handleSearchSubmit = (event) => {
-        event.preventDefault(); // Previene il ricaricamento della pagina
-        console.log("Ricerca per:", searchQuery); // Puoi sostituirlo con il tuo metodo di ricerca
-        setSearchQuery(""); // Resetta il campo di input
+        event.preventDefault(); // Prevent the page from reloading when the form is submitted
+        console.log("Searching for:", searchQuery); // You can replace this with your search logic
+        setSearchQuery(""); // Reset the search input after submission
     };
 
     return (
         <nav className="navbar">
-            {/* Logo Netflix */}
+            {/* Netflix Logo Link */}
             <div className="navbar-logo">
+                {/* Link to Home page */}
                 <Link to={`/users/${userId}/profiles/${profileId}/Home`}>
                     <img
                         src="/logo_netflix.png"
@@ -43,7 +66,7 @@ const Navbar = () => {
                 </Link>
             </div>
 
-            {/* Collegamenti */}
+            {/* Navigation Links */}
             <ul className="navbar-links">
                 <li>
                     <Link to={`/users/${userId}/profiles/${profileId}/Home`}>Home</Link>
@@ -62,23 +85,25 @@ const Navbar = () => {
                 </li>
             </ul>
 
-            {/* Barra di ricerca */}
+            {/* Search Bar and Account Icons */}
             <div className="navbar-icons">
+                {/* Search Form */}
                 <form className="navbar-search" onSubmit={handleSearchSubmit}>
                     <input
                         type="text"
-                        placeholder="Cerca"
+                        placeholder="Search"
                         className="search-input"
                         value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
+                        onChange={(e) => setSearchQuery(e.target.value)} // Updates searchQuery state on input change
                     />
                 </form>
 
-                {/* Icone notifiche e account */}
+                {/* Right-side icons (Profile and Notifications) */}
                 <div className="navbar-icons-right">
+                    {/* Link to Profile Settings page */}
                     <Link to={`/users/${userId}/profiles/${profileId}/profileSettings`}>
                         <img
-                            src={profileImage}
+                            src={profileImage} // Dynamic profile image fetched from API
                             alt="Account"
                             className="account-icon"
                         />

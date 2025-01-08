@@ -1,8 +1,8 @@
 import axios from "axios";
 
-// Configurazione base di Axios
+// Configuration of axios
 const api = axios.create({
-    baseURL: "http://localhost:8080", // Modifica l'URL in base al tuo backend
+    baseURL: "http://localhost:8080", // Content service URL
 });
 
 export default api;
