@@ -1,11 +1,13 @@
 import React, {useEffect, useState} from "react";
 import {getFilms} from "../services/useService";
 import "../styles/Films.css";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import Navbar from "../components/Navbar.jsx";
 
 const Films = () => {
     const [films, setFilms] = useState([]);
+    const { userId } = useParams(); // Ottieni l'ID del film dalla rotta
+    const { profileId } = useParams(); // Ottieni l'ID del film dalla rotta
     const [error, setError] = useState(null);
     const navigate = useNavigate(); // Per il reindirizzamento
 
@@ -36,7 +38,7 @@ const Films = () => {
                         <div
                             className="film-card"
                             key={film.filmId}
-                            onClick={() => navigate(`/films/${film.filmId}`)}
+                            onClick={() => navigate(`/users/${userId}/profiles/${profileId}/films/${film.filmId}`)}
                         >
                             <img
                                 src={film.image_path}

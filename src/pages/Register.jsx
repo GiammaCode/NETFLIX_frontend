@@ -1,17 +1,47 @@
-import React, { useState } from 'react';
-import { postUser } from "../services/useService.js";
+import React, { useEffect, useState } from 'react';
+import { postUser, getUser } from "../services/useService.js";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
+    const navigate = useNavigate();
+
+    const [maxId, setMaxId] = useState(0); // Stato per il maxId
     const [formData, setFormData] = useState({
-        userId: 5,
-        name: 'giammo', // Deve corrispondere a "name" nel form
-        surname: 'gianmarini', // Deve corrispondere a "surname" nel form
+        userId: 0, // Inizialmente impostato a 0, sarà aggiornato
+        name: 'giammo',
+        surname: 'gianmarini',
         password: 'mare',
         email: 'mare@pascara',
-        date_of_birth: '', // Deve corrispondere a "date_of_birth" nel form
-        paymentMethod: '', // Deve corrispondere a "paymentMethod" nel form
+        date_of_birth: '',
+        paymentMethod: '',
         profiles: '1'
     });
+
+    // Recupera gli utenti e calcola maxId
+    useEffect(() => {
+        const fetchMaxId = async () => {
+            try {
+                const users = await getUser();
+                const maxUserId = users.length > 0
+                    ? Math.max(...users.map((user) => user.userId))
+                    : 0;
+                setMaxId(maxUserId); // Aggiorna il maxId
+            } catch (error) {
+                console.error("Error fetching users:", error);
+                alert("Unable to fetch user data.");
+            }
+        };
+
+        fetchMaxId();
+    }, []);
+
+    // Aggiorna formData con il nuovo maxId quando cambia
+    useEffect(() => {
+        setFormData((prev) => ({
+            ...prev,
+            userId: maxId + 1, // Incrementa maxId di 1
+        }));
+    }, [maxId]);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -25,8 +55,9 @@ const Register = () => {
         try {
             await postUser(formData); // Invia i dati al backend
             alert('Registration successful!');
+            navigate(`/users/${formData.userId}`);
         } catch (error) {
-            //console.error("Error during registration:", error);
+            console.error("Error during registration:", error);
             alert('Registration failed!');
         }
     };
@@ -43,7 +74,7 @@ const Register = () => {
                         <input
                             type="text"
                             id="name"
-                            name="name" // Deve corrispondere a "name" in formData
+                            name="name"
                             className="form-control"
                             value={formData.name}
                             onChange={handleInputChange}
@@ -57,7 +88,7 @@ const Register = () => {
                         <input
                             type="text"
                             id="surname"
-                            name="surname" // Deve corrispondere a "surname" in formData
+                            name="surname"
                             className="form-control"
                             value={formData.surname}
                             onChange={handleInputChange}
@@ -71,7 +102,7 @@ const Register = () => {
                         <input
                             type="email"
                             id="email"
-                            name="email" // Deve corrispondere a "email" in formData
+                            name="email"
                             className="form-control"
                             value={formData.email}
                             onChange={handleInputChange}
@@ -85,7 +116,7 @@ const Register = () => {
                         <input
                             type="password"
                             id="password"
-                            name="password" // Deve corrispondere a "password" in formData
+                            name="password"
                             className="form-control"
                             value={formData.password}
                             onChange={handleInputChange}
@@ -99,7 +130,7 @@ const Register = () => {
                         <input
                             type="date"
                             id="date_of_birth"
-                            name="date_of_birth" // Deve corrispondere a "date_of_birth" in formData
+                            name="date_of_birth"
                             className="form-control"
                             value={formData.date_of_birth}
                             onChange={handleInputChange}
@@ -112,7 +143,7 @@ const Register = () => {
                         </label>
                         <select
                             id="paymentMethod"
-                            name="paymentMethod" // Deve corrispondere a "paymentMethod" in formData
+                            name="paymentMethod"
                             className="form-select"
                             value={formData.paymentMethod}
                             onChange={handleInputChange}
