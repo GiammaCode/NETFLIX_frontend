@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import "../styles/Navbar.css";
 
 const Navbar = () => {
     const [searchQuery, setSearchQuery] = useState("");
+    const { userId } = useParams(); // Ottieni l'ID del film dalla rotta
+    const { profileId } = useParams(); // Ottieni l'I
 
     const handleSearchSubmit = (event) => {
         event.preventDefault(); // Previene il ricaricamento della pagina
@@ -57,7 +59,7 @@ const Navbar = () => {
 
                 {/* Icone notifiche e account */}
                 <div className="navbar-icons-right">
-                    <Link to="/profile">
+                    <Link to={`/users/${userId}/profiles/${profileId}/profileSettings`}>
                         <img
                             src="../../public/profile_default.png"
                             alt="Account"

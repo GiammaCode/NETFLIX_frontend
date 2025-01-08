@@ -11,6 +11,8 @@ import '../styles/resister&login.css';
 import ActorDetails from "../pages/ActorDetails.jsx";
 import Profile from "../pages/ChooseProfile.jsx";
 import CreateProfile from "../pages/CreateProfile.jsx";
+import ChooseProfile from "../pages/ChooseProfile.jsx";
+import ProfileSettings from "../pages/ProfileSettings.jsx";
 
 
 const AppRouter = () => (
@@ -20,12 +22,13 @@ const AppRouter = () => (
             <Route path="/" element={<Welcome />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/users/:userId/" element={<Profile />} />
+            <Route path="/users/:userId/" element={<ChooseProfile />} />
             <Route path="/users/:userId/profiles/:profileId/createProfiles" element={<CreateProfile />} />
             <Route path="/users/:userId/profiles/:profileId/Home" element={<Home />} />
             <Route path="/users/:userId/profiles/:profileId/films" element={<Films />} />
             <Route path="/users/:userId/profiles/:profileId/films/:filmId" element={<FilmDetails />} />
             <Route path="/users/:userId/profiles/:profileId/actors/:actorId" element={<ActorDetails />} />
+            <Route path="/users/:userId/profiles/:profileId/profileSettings" element={<ProfileSettings />} />
         </Routes>
     </Router>
 );
