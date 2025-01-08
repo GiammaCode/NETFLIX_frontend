@@ -1,9 +1,6 @@
 import api from "./api";
 import userApi from "./userAPI.js";
 
-
-
-// Funzione per ottenere tutti i film
 export const getFilms = async () => {
     try {
         const response = await api.get("/films/"); // Assicurati che "/films" sia il percorso corretto nel backend

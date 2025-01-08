@@ -1,0 +1,72 @@
+.film-details-container {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 20px;
+    background-color: #000000;
+    color: white;
+}
+
+.film-cover {
+    flex: 1;
+}
+
+.film-cover-image {
+    width: 800px; /* Immagine quadrata */
+    height: 500px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.film-info {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.film-title {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+.film-description {
+    font-size: 1.2em;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+.film-metadata, .film-cast, .film-genres {
+    font-size: 1em;
+    margin-bottom: 10px;
+    color: #ccc;
+}
+
+.play-button {
+    background-color: #e50914;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1.2em;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.film-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.add-to-list, .download-button {
+    background-color: #222;
+    width: 50px;
+    height: 50px;
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 1.2em;
+    cursor: pointer;
+    border-radius: 50%;
+}
