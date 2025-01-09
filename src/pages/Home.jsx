@@ -75,7 +75,7 @@ const Home = () => {
                     )}
                 </div>
                 <h1 className="title">Recommended for you</h1>
-                <div className="filmsg-row">
+                <div className="films-row">
                     {recommendedFilms.length > 0 ? (
                         recommendedFilms.map((film) => (
                             <div
