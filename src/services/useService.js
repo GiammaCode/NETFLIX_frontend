@@ -207,3 +207,26 @@ export const deleteRecommendedFilms = async (userId, profileId,filmId) => {
     }
 };
 
+export const deleteViewedFilms = async (userId, profileId,filmId) => {
+    try {
+        const response = await viewApi.delete(`/users/${userId}/profiles/${profileId}/views/${filmId}`); // API call
+        return response.data; // Return recommended films
+    } catch (error) {
+        console.error("Error fetching viewed films:", error);
+        throw error; // Rethrow the error to handle it in the component
+    }
+};
+
+
+export const putViewedFilms = async (userId, profileId,filmId, userData) => {
+    try {
+        const response = await viewApi.put(`/users/${userId}/profiles/${profileId}/views/${filmId}`,userData); // API call
+        return response.data; // Return recommended films
+    } catch (error) {
+        console.error("Error fetching viewed films:", error);
+        throw error; // Rethrow the error to handle it in the component
+    }
+};
+
+
+

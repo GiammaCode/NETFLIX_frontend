@@ -2,7 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom"; // Hooks for handling route parameters and links
 import "../styles/viewDetails.css"; // Custom styling for the FilmDetails component
 import Navbar from "../components/Navbar.jsx"; // Navbar component for the film details page
-import {getViewedFilm} from "../services/useService.js";
+import {
+    deleteViewedFilms,
+    getViewedFilm,
+    putViewedFilms
+} from "../services/useService.js";
 /**
  * FilmDetails component displays detailed information about a specific film.
  * It includes the film's title, description, release year, rating, genres, cast, and actions.
@@ -24,6 +28,7 @@ const ViewDetails = () => {
         const fetchFilmDetails = async () => {
             try {
                 const view = await getViewedFilm(userId, profileId,filmId)
+                setView(view)
                 const response = await fetch(`http://localhost:8080/films/${filmId}`); // Fetch film data
                 if (!response.ok) {
                     throw new Error("Failed to fetch film details");
@@ -59,6 +64,34 @@ const ViewDetails = () => {
         fetchActors(); // Fetch actors data
         fetchFilmDetails(); // Fetch film details data
     }, [filmId]); // Effect depends on the filmId (re-fetches if filmId changes)
+
+    const handlePlay = async () => {
+        const randomNumber = Math.floor(Math.random() * 100) + 1; // Genera un numero casuale tra 1 e 100
+        const userData = {
+            filmId: parseInt(filmId,10),
+            userId: parseInt(userId, 10),
+            profileId: parseInt(profileId, 10),
+            timesOFTheFilm: randomNumber // Aggiungi il numero casuale all'oggetto
+        };
+
+        try {
+            await putViewedFilms(userId, profileId, filmId, userData); // Chiama l'API con i dati
+            alert("Film started successfully and added at the view"); // Messaggio di conferma
+        } catch (err) {
+            console.error("Failed to start film:", err); // Log in caso di errore
+            alert("Error starting the film."); // Messaggio di errore
+        }
+    };
+
+    const handleDelete = async () => {
+        try {
+            await deleteViewedFilms(userId, profileId,filmId); // Call the API
+            alert("Film finished successfully and added at the view"); // Messaggio di conferma
+        } catch (err) {
+            console.error("Failed to finish the film:", err); // Log in caso di errore
+            alert("Error starting the film."); // Messaggio di errore
+        }
+    };
 
     /**
      * Handles adding the film to the recommended list by calling postRecommendedFilms.
@@ -109,8 +142,8 @@ const ViewDetails = () => {
                     <div className="film-genres">
                         <p><strong>Film genre:</strong> {film.genre}</p> {/* Film genre */}
                     </div>
-                    <button className="play-button">Play</button> {/* Button to play the film */}
-                        <button className="add-to-views">Play from minutes: {view.timesOFTheFilm}</button> {/* Button to add film to list */}
+                    <button className="play-button" onClick={handlePlay}>Play</button> {/* Button to play the film */}
+                    <button className="add-to-views" onClick={handleDelete}>Play from minutes: {view.timesOFTheFilm}</button> {/* Button to add film to list */}
                 </div>
             </div>
         </div>
