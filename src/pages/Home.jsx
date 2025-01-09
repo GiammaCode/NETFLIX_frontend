@@ -52,7 +52,7 @@ const Home = () => {
                             <div
                                 className="film-card"
                                 key={film.filmId}
-                                onClick={() => navigate(`/films/${film.filmId}`)}
+                                onClick={() => navigate(`/users/${userId}/profiles/${profileId}/views/${film.filmId}`)}
                             >
                                 <img
                                     src={film.filmDetails.image_path || "/default_film_image.png"}
@@ -81,7 +81,7 @@ const Home = () => {
                             <div
                                 className="film-card"
                                 key={film.filmId}
-                                onClick={() => navigate(`/films/${film.filmId}`)}
+                                onClick={() => navigate(`/users/${userId}/profiles/${profileId}/recommendeds/${film.filmId}`)}
                             >
                                 <img
                                     src={film.filmDetails.image_path || "/default_film_image.png"}

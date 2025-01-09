@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom"; // Hooks for handling route parameters and links
 import "../styles/FilmDetails.css"; // Custom styling for the FilmDetails component
 import Navbar from "../components/Navbar.jsx"; // Navbar component for the film details page
-import { postRecommendedFilms } from "../services/useService.js"; // Service for posting recommended films
-import {postViewFilms} from "../services/useService.js";
+import {deleteRecommendedFilms, postViewFilms} from "../services/useService.js"; // Service for posting recommended films
+
 /**
  * FilmDetails component displays detailed information about a specific film.
  * It includes the film's title, description, release year, rating, genres, cast, and actions.
@@ -11,7 +11,7 @@ import {postViewFilms} from "../services/useService.js";
  *
  * @component
  */
-const FilmDetails = () => {
+const RecommandedDetails = () => {
     const { filmId } = useParams(); // Retrieves filmId from the URL
     const [film, setFilm] = useState(null); // State for storing film data
     const { userId } = useParams(); // Retrieves userId from the URL
@@ -33,7 +33,6 @@ const FilmDetails = () => {
                 setError(err.message); // Handle errors
             }
         };
-
 
         const fetchActors = async () => {
             try {
@@ -69,6 +68,7 @@ const FilmDetails = () => {
 
         try {
             await postViewFilms(userId, profileId, userData); // Chiama l'API con i dati
+            await deleteRecommendedFilms(userId, profileId,filmId); // Call the API
             alert("Film started successfully and added at the view"); // Messaggio di conferma
         } catch (err) {
             console.error("Failed to start film:", err); // Log in caso di errore
@@ -80,19 +80,15 @@ const FilmDetails = () => {
      * Handles adding the film to the recommended list by calling postRecommendedFilms.
      */
     const handleAddToRecommendeds = async () => {
-        const userData = {
-            filmId: parseInt(filmId, 10),
-            userId: parseInt(userId, 10),
-            profileId: parseInt(profileId, 10)
-        };        try {
-            await postRecommendedFilms(userId, profileId, userData); // Call the API
-            alert("Film added to recommendeds successfully!"); // Display success message
+             try {
+            await deleteRecommendedFilms(userId, profileId,filmId); // Call the API
+
+            alert("Film removed to recommendeds successfully!"); // Display success message
         } catch (err) {
-            console.error("Failed to add film to recommendeds:", err);
-            alert("Error adding film to recommendeds."); // Display error message
+            console.error("Failed to remove film to recommendeds:", err);
+            alert("Error removing film to recommendeds."); // Display error message
         }
     };
-
 
     // If there's an error, display it
     if (error) {
@@ -138,9 +134,9 @@ const FilmDetails = () => {
                     <div className="film-genres">
                         <p><strong>Film genre:</strong> {film.genre}</p> {/* Film genre */}
                     </div>
-                    <button className="play-button" onClick={handlePlay}>Play</button>
+                    <button className="play-button" onClick={handlePlay}>Play</button> {/* Button to play the film */}
                     <div className="film-actions">
-                        <button className="add-to-recommendeds" onClick={handleAddToRecommendeds}>+</button> {/* Button to add film to list */}
+                        <button className="add-to-recommendeds" onClick={handleAddToRecommendeds}>-</button> {/* Button to add film to list */}
                         <button className="download-button">⬇</button> {/* Button to download the film */}
                     </div>
                 </div>
@@ -149,4 +145,4 @@ const FilmDetails = () => {
     );
 };
 
-export default FilmDetails;
+export default RecommandedDetails;

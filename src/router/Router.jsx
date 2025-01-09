@@ -10,8 +10,9 @@ import Welcome from "../pages/Welcome.jsx"; // Import Welcome page component
 import ActorDetails from "../pages/ActorDetails.jsx"; // Import ActorDetails page component
 import CreateProfile from "../pages/CreateProfile.jsx"; // Import CreateProfile page component
 import ChooseProfile from "../pages/ChooseProfile.jsx"; // Import ChooseProfile page component
-import ProfileSettings from "../pages/ProfileSettings.jsx"; // Import ProfileSettings page component
-
+import ProfileSettings from "../pages/ProfileSettings.jsx";
+import RecommendedDetails from "../pages/RecommendedDetails.jsx";
+import ViewDetails from "../pages/ViewDetails.jsx"; // Import ProfileSettings page component
 /**
  * AppRouter component handles routing for the entire application.
  * It defines various routes and maps them to specific page components.
@@ -43,6 +44,9 @@ const AppRouter = () => (
             <Route path="/users/:userId/profiles/:profileId/films/:filmId/actors/:actorId" element={<ActorDetails />} />
             {/* The ProfileSettings page, with dynamic userId and profileId parameters */}
             <Route path="/users/:userId/profiles/:profileId/profileSettings" element={<ProfileSettings />} />
+            <Route path="/users/:userId/profiles/:profileId/views/:filmId" element={<ViewDetails />} />
+            <Route path="/users/:userId/profiles/:profileId/recommendeds/:filmId" element={<RecommendedDetails />} />
+
         </Routes>
     </Router>
 );

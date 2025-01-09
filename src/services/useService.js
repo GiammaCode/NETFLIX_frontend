@@ -150,6 +150,16 @@ export const getViewedFilms = async (userId, profileId) => {
     }
 };
 
+export const getViewedFilm = async (userId, profileId,filmId) => {
+    try {
+        const response = await viewApi.get(`/users/${userId}/profiles/${profileId}/views/${filmId}`); // API call
+        return response.data; // Return viewed films
+    } catch (error) {
+        console.error("Error fetching viewed films:", error);
+        throw error; // Rethrow the error to handle it in the component
+    }
+};
+
 /**
  * Fetches recommended films for a specific user and profile from the backend.
  * @param {number} userId - The ID of the user.
@@ -166,3 +176,34 @@ export const getRecommendedFilms = async (userId, profileId) => {
         throw error; // Rethrow the error to handle it in the component
     }
 };
+
+export const postRecommendedFilms = async (userId, profileId,userData) => {
+    try {
+        const response = await viewApi.post(`/users/${userId}/profiles/${profileId}/recommendeds`,userData); // API call
+        return response.data; // Return recommended films
+    } catch (error) {
+        console.error("Error fetching viewed films:", error);
+        throw error; // Rethrow the error to handle it in the component
+    }
+};
+
+export const postViewFilms = async (userId, profileId,userData) => {
+    try {
+        const response = await viewApi.post(`/users/${userId}/profiles/${profileId}/views`,userData); // API call
+        return response.data; // Return recommended films
+    } catch (error) {
+        console.error("Error fetching viewed films:", error);
+        throw error; // Rethrow the error to handle it in the component
+    }
+};
+
+export const deleteRecommendedFilms = async (userId, profileId,filmId) => {
+    try {
+        const response = await viewApi.delete(`/users/${userId}/profiles/${profileId}/recommendeds/${filmId}`); // API call
+        return response.data; // Return recommended films
+    } catch (error) {
+        console.error("Error fetching viewed films:", error);
+        throw error; // Rethrow the error to handle it in the component
+    }
+};
+
