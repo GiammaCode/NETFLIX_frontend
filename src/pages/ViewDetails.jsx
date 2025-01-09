@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom"; // Hooks for handling route parameters and links
-import "../styles/FilmDetails.css"; // Custom styling for the FilmDetails component
+import "../styles/viewDetails.css"; // Custom styling for the FilmDetails component
 import Navbar from "../components/Navbar.jsx"; // Navbar component for the film details page
-import { postRecommendedFilms } from "../services/useService.js"; // Service for posting recommended films
-import {postViewFilms} from "../services/useService.js";
+import {
+    deleteViewedFilms,
+    getViewedFilm,
+    putViewedFilms
+} from "../services/useService.js";
 /**
  * FilmDetails component displays detailed information about a specific film.
  * It includes the film's title, description, release year, rating, genres, cast, and actions.
@@ -11,18 +14,21 @@ import {postViewFilms} from "../services/useService.js";
  *
  * @component
  */
-const FilmDetails = () => {
+const ViewDetails = () => {
     const { filmId } = useParams(); // Retrieves filmId from the URL
     const [film, setFilm] = useState(null); // State for storing film data
     const { userId } = useParams(); // Retrieves userId from the URL
     const { profileId } = useParams(); // Retrieves profileId from the URL
     const [actors, setActors] = useState([]); // State for storing the list of actors
     const [error, setError] = useState(null); // State for storing any error message
+    const [view,setView] = useState(null)
 
     // Fetch film details and actors information when the component is mounted
     useEffect(() => {
         const fetchFilmDetails = async () => {
             try {
+                const view = await getViewedFilm(userId, profileId,filmId)
+                setView(view)
                 const response = await fetch(`http://localhost:8080/films/${filmId}`); // Fetch film data
                 if (!response.ok) {
                     throw new Error("Failed to fetch film details");
@@ -34,9 +40,10 @@ const FilmDetails = () => {
             }
         };
 
-
         const fetchActors = async () => {
             try {
+                const view = await getViewedFilm(userId,profileId,filmId)
+                setView(view)
                 const response = await fetch(`http://localhost:8080/films/${filmId}/actors`); // Fetch actors associated with the film
                 if (!response.ok) {
                     throw new Error("Failed to fetch actors");
@@ -68,7 +75,7 @@ const FilmDetails = () => {
         };
 
         try {
-            await postViewFilms(userId, profileId, userData); // Chiama l'API con i dati
+            await putViewedFilms(userId, profileId, filmId, userData); // Chiama l'API con i dati
             alert("Film started successfully and added at the view"); // Messaggio di conferma
         } catch (err) {
             console.error("Failed to start film:", err); // Log in caso di errore
@@ -76,22 +83,19 @@ const FilmDetails = () => {
         }
     };
 
+    const handleDelete = async () => {
+        try {
+            await deleteViewedFilms(userId, profileId,filmId); // Call the API
+            alert("Film finished successfully and added at the view"); // Messaggio di conferma
+        } catch (err) {
+            console.error("Failed to finish the film:", err); // Log in caso di errore
+            alert("Error starting the film."); // Messaggio di errore
+        }
+    };
+
     /**
      * Handles adding the film to the recommended list by calling postRecommendedFilms.
      */
-    const handleAddToRecommendeds = async () => {
-        const userData = {
-            filmId: parseInt(filmId, 10),
-            userId: parseInt(userId, 10),
-            profileId: parseInt(profileId, 10)
-        };        try {
-            await postRecommendedFilms(userId, profileId, userData); // Call the API
-            alert("Film added to recommendeds successfully!"); // Display success message
-        } catch (err) {
-            console.error("Failed to add film to recommendeds:", err);
-            alert("Error adding film to recommendeds."); // Display error message
-        }
-    };
 
 
     // If there's an error, display it
@@ -138,15 +142,12 @@ const FilmDetails = () => {
                     <div className="film-genres">
                         <p><strong>Film genre:</strong> {film.genre}</p> {/* Film genre */}
                     </div>
-                    <button className="play-button" onClick={handlePlay}>Play</button>
-                    <div className="film-actions">
-                        <button className="add-to-recommendeds" onClick={handleAddToRecommendeds}>+</button> {/* Button to add film to list */}
-                        <button className="download-button">⬇</button> {/* Button to download the film */}
-                    </div>
+                    <button className="play-button" onClick={handlePlay}>Play</button> {/* Button to play the film */}
+                    <button className="add-to-views" onClick={handleDelete}>Play from minutes: {view.timesOFTheFilm}</button> {/* Button to add film to list */}
                 </div>
             </div>
         </div>
     );
 };
 
-export default FilmDetails;
+export default ViewDetails;

@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/resister&login.css';
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-//Starting point
+//Starting pointgit
 root.render(
     <React.StrictMode>
         <AppRouter />
