@@ -1,0 +1,13 @@
+version: '3.8'
+services:
+  frontend:
+    build:
+      context: .
+    ports:
+      - "3000:80" # La porta 80 nel container corrisponde alla porta 3000 sulla macchina host
+    networks:
+      - shared_network
+
+networks:
+  shared_network:
+    external: true

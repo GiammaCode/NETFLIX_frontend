@@ -1,6 +1,6 @@
 import api from "./api"; // Import the base API instance for general requests (e.g., films).
 import userApi from "./userAPI.js"; // Import the user-specific API instance for user and profile management.
-import viewApi from "./viewApi.js"
+import viewApi from "./viewAPI.js"
 
 /**
  * Fetches all films from the backend.
