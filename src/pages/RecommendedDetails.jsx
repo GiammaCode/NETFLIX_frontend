@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom"; // Hooks for handling route parameters and links
 import "../styles/FilmDetails.css"; // Custom styling for the FilmDetails component
 import Navbar from "../components/Navbar.jsx"; // Navbar component for the film details page
-import {deleteRecommendedFilms, postViewFilms} from "../services/useService.js"; // Service for posting recommended films
+import {deleteRecommendedFilms, getViewedFilms, postViewFilms} from "../services/useService.js"; // Service for posting recommended films
 
 /**
  * FilmDetails component displays detailed information about a specific film.
@@ -67,9 +67,20 @@ const RecommandedDetails = () => {
         };
 
         try {
-            await postViewFilms(userId, profileId, userData); // Chiama l'API con i dati
+            const viewedList = await getViewedFilms(userId, profileId);
+
+            // Check if the film is already in the viewed list
+            const isAlreadyViewed = viewedList.some((view) => view.filmId === parseInt(filmId,10)
+            );
+
+            if (!isAlreadyViewed) {
+                await postViewFilms(userId, profileId, userData); // Add the film to the viewed list
+                alert("Film started successfully and added at the view"); // Messaggio di conferma
+
+            }else {
+                alert("The film is start but was already in the view list."); // Messaggio di errore
+            }
             await deleteRecommendedFilms(userId, profileId,filmId); // Call the API
-            alert("Film started successfully and added at the view"); // Messaggio di conferma
         } catch (err) {
             console.error("Failed to start film:", err); // Log in caso di errore
             alert("Error starting the film."); // Messaggio di errore

@@ -135,8 +135,8 @@ export const deleteProfile = async (userID, profileID) => {
 
 /**
  * Fetches viewed films for a specific user and profile from the backend.
- * @param {number} userId - The ID of the user.
- * @param {number} profileId - The ID of the profile.
+ * @param {string} userId - The ID of the user.
+ * @param {string} profileId - The ID of the profile.
  * @returns {Promise<Array>} A promise that resolves to an array of viewed films.
  * @throws Will throw an error if the API call fails.
  */
@@ -162,8 +162,8 @@ export const getViewedFilm = async (userId, profileId,filmId) => {
 
 /**
  * Fetches recommended films for a specific user and profile from the backend.
- * @param {number} userId - The ID of the user.
- * @param {number} profileId - The ID of the profile.
+ * @param {string} userId - The ID of the user.
+ * @param {string} profileId - The ID of the profile.
  * @returns {Promise<Array>} A promise that resolves to an array of recommended films.
  * @throws Will throw an error if the API call fails.
  */

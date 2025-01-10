@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom"; // Hooks for handling route parameters and links
 import "../styles/FilmDetails.css"; // Custom styling for the FilmDetails component
 import Navbar from "../components/Navbar.jsx"; // Navbar component for the film details page
-import { postRecommendedFilms } from "../services/useService.js"; // Service for posting recommended films
+import {getRecommendedFilms, getViewedFilms, postRecommendedFilms} from "../services/useService.js"; // Service for posting recommended films
 import {postViewFilms} from "../services/useService.js";
 /**
  * FilmDetails component displays detailed information about a specific film.
@@ -68,8 +68,20 @@ const FilmDetails = () => {
         };
 
         try {
-            await postViewFilms(userId, profileId, userData); // Chiama l'API con i dati
-            alert("Film started successfully and added at the view"); // Messaggio di conferma
+            const viewedList = await getViewedFilms(userId, profileId);
+
+            // Check if the film is already in the viewed list
+            const isAlreadyViewed = viewedList.some((view) => view.filmId === parseInt(filmId,10)
+            );
+
+            if (!isAlreadyViewed) {
+                await postViewFilms(userId, profileId, userData); // Call the API
+                alert("The film is start now is in the view list."); // Messaggio di errore
+
+            }else {
+                alert("The film is start but was already in the view list."); // Messaggio di errore
+            }
+
         } catch (err) {
             console.error("Failed to start film:", err); // Log in caso di errore
             alert("Error starting the film."); // Messaggio di errore
@@ -85,8 +97,20 @@ const FilmDetails = () => {
             userId: parseInt(userId, 10),
             profileId: parseInt(profileId, 10)
         };        try {
-            await postRecommendedFilms(userId, profileId, userData); // Call the API
-            alert("Film added to recommendeds successfully!"); // Display success message
+            const viewedList = await getRecommendedFilms(userId, profileId);
+
+            // Check if the film is already in the viewed list
+            const isAlreadyViewed = viewedList.some((view) => view.filmId === parseInt(filmId,10)
+            );
+
+            if (!isAlreadyViewed) {
+                await postRecommendedFilms(userId, profileId, userData); // Call the API
+                alert("Film added to recommendeds successfully!"); // Display success message
+
+            }else {
+                alert("Film already in the recommendeds!"); // Display success message
+
+            }
         } catch (err) {
             console.error("Failed to add film to recommendeds:", err);
             alert("Error adding film to recommendeds."); // Display error message
