@@ -50,7 +50,7 @@ Before deploying the frontend, you need to create a specific network for the pro
 communicate with each other.
 
 ```bash
-docker network create flask_network
+docker network create shared_network
 ```
 
 ### Step 2: Build and Start the API
