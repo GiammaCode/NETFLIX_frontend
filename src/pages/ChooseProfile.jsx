@@ -85,7 +85,7 @@ function ProfileSelection() {
                     onClick={() => handleProfileClick("add-new")} // Trigger add new profile navigation
                 >
                     <img
-                        src="https://via.placeholder.com/150?text=Add+New" // Placeholder image for adding a new profile
+                        src="/newProfile.png" // Placeholder image for adding a new profile
                         alt="Add New"
                         className="profile-avatar"
                     />

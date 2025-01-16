@@ -29,7 +29,7 @@ const ViewDetails = () => {
             try {
                 const view = await getViewedFilm(userId, profileId,filmId)
                 setView(view)
-                const response = await fetch(`http://localhost:8080/films/${filmId}`); // Fetch film data
+                const response = await fetch(`http://content-service:8080/films/${filmId}`); // Fetch film data
                 if (!response.ok) {
                     throw new Error("Failed to fetch film details");
                 }
@@ -44,7 +44,7 @@ const ViewDetails = () => {
             try {
                 const view = await getViewedFilm(userId,profileId,filmId)
                 setView(view)
-                const response = await fetch(`http://localhost:8080/films/${filmId}/actors`); // Fetch actors associated with the film
+                const response = await fetch(`http://content-service:8080/films/${filmId}/actors`); // Fetch actors associated with the film
                 if (!response.ok) {
                     throw new Error("Failed to fetch actors");
                 }
